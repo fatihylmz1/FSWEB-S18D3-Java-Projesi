@@ -1,0 +1,114 @@
+1) SELECT ograd, ogrsoyad, islem.atarih FROM ogrenci
+
+2) SELECT turadi, kitapadi FROM kitap JOIN tur ON kitap.turno = tur.turno WHERE tur.turadi IN ('Fıkra', 'Hikaye');
+
+3) SELECT ogrenci.ogrno, ograd, ogrsoyad, kitapadi AS okunan_kitap FROM ogrenci JOIN islem ON ogrenci.ogrno = islem.ogrno JOIN kitap ON islem.kitapno = kitap.kitapno WHERE ogrenci.sinif IN ('10B', '10C');
+
+4) SELECT ograd, ogrsoyad, atarih FROM ogrenci JOIN islem ON ogrenci.ogrno = islem.ogrno;
+
+5) SELECT kitapadi, turadi FROM tur JOIN kitap ON tur.turno = kitap.turno 
+
+6) SELECT ogrenci.ogrno, ogrenci.ograd, ogrenci.ogrsoyad, kitapadi AS okunan_kitap
+FROM ogrenci
+JOIN islem ON ogrenci.ogrno = islem.ogrno
+JOIN kitap ON islem.kitapno = kitap.kitapno
+WHERE ogrenci.sinif IN ('10B', '10C')
+ORDER BY ogrenci.ograd;
+
+7) SELECT ograd, ogrsoyad, atarih FROM ogrenci
+LEFT JOIN islem ON ogrenci.ogrno = islem.ogrno;
+
+8) SELECT ogrenci.ogrno, ogrenci.ograd, ogrenci.ogrsoyad, atarih FROM ogrenci
+LEFT JOIN islem ON ogrenci.ogrno = islem.ogrno
+WHERE islem.ogrno IS NULL;
+
+9) SELECT kitap.kitapno, kitap.kitapadi, COUNT(islem.kitapno) AS alim_sayisi
+FROM kitap
+LEFT JOIN islem ON kitap.kitapno = islem.kitapno
+GROUP BY kitap.kitapno, kitap.kitapadi
+ORDER BY kitap.kitapno ASC;
+
+10)  SELECT kitap.kitapno, kitap.kitapadi, COUNT(islem.kitapno) AS alim_sayisi
+FROM kitap
+LEFT JOIN islem ON kitap.kitapno = islem.kitapno
+GROUP BY kitap.kitapno, kitap.kitapadi
+ORDER BY kitap.kitapno ASC;
+
+11) SELECT ogrenci.ograd, ogrenci.ogrsoyad, kitap.kitapadi FROM ogrenci
+ LEFT JOIN islem ON ogrenci.ogrno = islem.ogrno
+LEFT JOIN kitap ON islem.kitapno = kitap.kitapno
+ORDER BY ogrenci.ograd, ogrenci.ogrsoyad;
+
+12)  SELECT ogrenci.ograd, ogrenci.ogrsoyad, islem.atarih, tur.turadi,kitap.kitapadi, yazar.yazarad FROM ogrenci
+ LEFT JOIN islem ON ogrenci.ogrno = islem.ogrno
+LEFT JOIN kitap ON islem.kitapno = kitap.kitapno
+LEFT JOIN yazar ON kitap.yazarno = yazar.yazarno
+LEFT JOIN tur ON kitap.turno = tur.turno;
+
+13) SELECT ogrenci.ograd, ogrenci.ogrsoyad, COUNT(islem.kitapno) AS okunan_kitap_sayisi
+FROM ogrenci
+LEFT JOIN islem ON ogrenci.ogrno = islem.ogrno
+WHERE ogrenci.sinif IN ('10A', '10B')
+GROUP BY ogrenci.ograd, ogrenci.ogrsoyad
+ORDER BY ogrenci.ograd;
+
+14) SELECT AVG(sayfasayisi) AS ortalama_sayfa_sayisi FROM kitap;
+
+15) SELECT kitap.kitapadi, kitap.sayfasayisi
+FROM kitap
+WHERE kitap.sayfasayisi > (
+    SELECT AVG(sayfasayisi) 
+    FROM kitap); SELECT COUNT(*) AS toplam_sayi
+FROM ogrenci;
+
+16) SELECT COUNT(ogrenci.ogrno) AS ogrencisayisi FROM ogrenci;
+
+17) 
+SELECT COUNT(*) AS toplam_sayi
+FROM ogrenci;
+
+18) SELECT COUNT(DISTINCT ograd) AS farkli_isim_sayisi FROM ogrenci;
+
+19) SELECT MAX(sayfasayisi) AS max_sayfa_sayisi FROM kitap;
+
+20) SELECT kitapadi AS max_sayfa_sayisi_kitap, sayfasayisi
+FROM kitap
+ORDER BY sayfasayisi DESC
+LIMIT 1;
+
+21) SELECT sayfasayisi
+FROM kitap
+ORDER BY sayfasayisi ASC
+LIMIT 1;
+
+22) SELECT kitapadi, sayfasayisi
+FROM kitap
+ORDER BY sayfasayisi ASC
+LIMIT 1;
+
+23) SELECT MAX(sayfasayisi) FROM kitap
+WHERE turno = (SELECT turno FROM tur WHERE turadi = 'Dram');
+
+24) SELECT SUM(kitap.sayfasayisi) AS toplam_sayfa_sayisi FROM islem
+JOIN kitap ON islem.kitapno = kitap.kitapno
+WHERE islem.ogrno = 15;
+
+25) SELECT ograd, COUNT(*) AS ogrenci_sayisi FROM ogrenci
+GROUP BY ograd;
+\
+26) SELECT sinif, COUNT(sinif) FROM ogrenci
+GROUP BY sinif;
+\
+27) SELECT sinif, cinsiyet, COUNT(*) FROM ogrenci
+GROUP BY sinif, cinsiyet;
+\
+28) SELECT ogrenci.ograd, ogrenci.ogrsoyad, SUM(kitap.sayfasayisi) AS toplam_kitap_sayfasi FROM ogrenci
+JOIN islem ON ogrenci.ogrno = islem.ogrno
+JOIN kitap ON kitap.kitapno = islem.kitapno
+GROUP BY ogrenci.ograd, ogrenci.ogrsoyad
+ORDER BY toplam_kitap_sayfasi DESC;
+
+29) SELECT ogrenci.ograd, ogrenci.ogrsoyad, COUNT(islem.kitapno) AS okunan_kitap_sayisi FROM ogrenci
+JOIN islem ON islem.ogrno = ogrenci.ogrno
+GROUP BY ogrenci.ograd, ogrenci.ogrsoyad
+ORDER BY okunan_kitap_sayisi DESC;

@@ -28,14 +28,11 @@ Aşağıda istenilen sonuçlara ulaşabilmek için gerekli SQL sorgularını yaz
 MIN-MAX, COUNT-AVG-SUM, GROUP BY, JOINS (INNER, OUTER, LEFT, RIGHT
 	#ilk 3 soruyu join kullanmadan yazın.
 	1) Öğrencinin adını, soyadını ve kitap aldığı tarihleri listeleyin.
-	
-
-	
+		
 	2) Fıkra ve hikaye türündeki kitapların adını ve türünü listeleyin.
 	
-	
 	3) 10B veya 10C sınıfındaki öğrencilerin numarasını, adını, soyadını ve okuduğu kitapları listeleyin.
-	
+
 	#join ile yazın
 	4) Öğrencinin adını, soyadını ve kitap aldığı tarihleri listeleyin.
 	
